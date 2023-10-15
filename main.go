@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+
 	"log"
 	"net/http"
 	"time"
@@ -27,9 +28,9 @@ func orderDetails(w http.ResponseWriter, r *http.Request) {
 
 func health(w http.ResponseWriter, r *http.Request) {
 	response := map[string]string{
-		"ip":        info.IP().String(),
-		"hostname":  info.Hostname(),
-		"developer": "Monish",
+		"ip":           info.IP().String(),
+		"hostname":     info.Hostname(),
+		"Developed by": "Monish",
 	}
 	json.NewEncoder(w).Encode(response)
 
@@ -38,7 +39,8 @@ func health(w http.ResponseWriter, r *http.Request) {
 func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/books/{title}", orderDetails)
-	r.HandleFunc("/health", health)
+	r.HandleFunc("/", health)
+
 	log.Println("Server has started serving at 8070")
 	http.ListenAndServe(":8070", r)
 }
